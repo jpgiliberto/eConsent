@@ -1,0 +1,61 @@
+---
+title: "eConsent Training Tracking"
+author: "JP Giliberto MD"
+format: html
+echo: false
+warning: false
+---
+
+```{r}
+#|error: false
+#|warning: false
+#|echo: false
+library(tidyverse)
+library (lubridate)
+library(gt)
+library(scales)
+library(rjson)
+library(readxl)
+
+Provider_Training_Distribution <- read_excel("Provider Training Distribution.xlsx")
+filenamescon <- list.files("C:/Users/jpgil/OneDrive/Documents/R/eConsent/exports", pattern="*.xlsx", full.names=TRUE)
+completed<- read_excel(filenamescon)
+
+training_data <- Provider_Training_Distribution |> 
+  left_join(completed) |> 
+  mutate(Completed = !is.na(ID))
+
+
+ # this should give you a character vector, with each file name represented by an entry
+```
+
+# Completion Rates by Specialty
+
+```{r}
+#|error: true
+#|warning: true
+#|echo: false
+#|include: false
+
+completion_rates <- training_data |> 
+  group_by(Department) |> 
+  summarise(Completed = round(sum(Completed)/n(), 3))
+
+ggplot(completion_rates, aes(x = reorder(Department, Completed),
+                             y = Completed, 
+                             label = percent(Completed, accuracy = 0.1), 
+                             color = Completed, 
+                             fill=Completed)) +
+  geom_col() +
+  geom_text(nudge_y = 0.019, color = "black")+
+  scale_color_continuous(type = "viridis")+
+  scale_fill_continuous(type = "viridis")+
+  coord_flip()+
+  xlab("Specialty")+
+  ylab("Percent Completed")
+
+
+
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).

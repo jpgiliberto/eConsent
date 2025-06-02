@@ -34,6 +34,7 @@ total_rate <- training_data |>
   summarise(Total_Completion_Rate = round(sum(Completed)/n(), 3))
 list(icon = "bookmark-check-fill",
      color = "success",
+     color = "primary",
      value = percent(pull(total_rate,1),accuracy = 0.1)
 )
 ```

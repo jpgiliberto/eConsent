@@ -24,6 +24,9 @@ training_data <- Provider_Training_Distribution |>
 
  # this should give you a character vector, with each file name represented by an entry
 ```
+
+# Completion Rates
+
 ## Row - Badges {height=20%}
 
 ```{r}
@@ -77,4 +80,81 @@ ggplot(completion_rates, aes(x = reorder(Department, Completed),
   xlab("Specialty")+
   ylab("Percent Completed")
 
+```
+
+# Comments
+
+```{r}
+comment_list <- training_data |> 
+  select(Email, questions = `Questions about eConsent process:`) |> 
+  filter(!is.na(questions))
+
+no_comments <- comment_list |> 
+  mutate(Question = str_to_sentence(questions)) |> 
+  mutate(No_Qs = str_starts(Question,"No")) |> 
+  filter(No_Qs ==T)
+
+```
+
+## Row - Badges {height=20%}
+
+```{r}
+#| content: valuebox
+#| title: "Number of No/None Q"
+
+total_no_comm <- no_comments |> 
+  summarise(Number = sum(No_Qs))
+
+list(icon = "ban",
+     color = "danger",
+     value = pull (total_no_comm,1)
+)
+```
+
+```{r} 
+#| content: valuebox
+#| title: "Last Updated"
+
+total_other_comm <- comment_list |>
+  mutate(Question = str_to_sentence(questions)) |> 
+  mutate(No_Qs = str_starts(Question,"No")) |> 
+  filter(No_Qs ==F) |> 
+  summarise(Number = n())
+
+list(icon = "card-checklist",
+     color = "success",
+     value = pull (total_other_comm,1))
+
+
+```
+
+## Row - Comment details {height=80%}
+
+```{r}
+#| title: "Details of No/None Q"
+
+total_no_comm_details <- no_comments |> 
+  group_by(Question) |> 
+  count() 
+
+total_no_comm_details <- as.data.frame(total_no_comm_details)
+
+total_no_comm_details |> 
+  rename(Response = Question)|> 
+  gt()
+```
+
+```{r}
+#| title: "Details of Questions"
+
+comm_details <- comment_list |> 
+  mutate(Question = str_to_sentence(questions)) |> 
+  mutate(No_Qs = str_starts(Question,"No")) |> 
+  filter(No_Qs ==F) |> 
+  left_join(training_data) |> 
+  select(Name, Email, Question) |> 
+  gt()
+
+comm_details
+  
 ```

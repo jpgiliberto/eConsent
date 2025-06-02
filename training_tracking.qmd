@@ -1,15 +1,11 @@
 ---
 title: "eConsent Training Tracking"
 author: "JP Giliberto MD"
-format: html
-echo: false
-warning: false
+format: dashboard
+
 ---
 
 ```{r}
-#|error: false
-#|warning: false
-#|echo: false
 library(tidyverse)
 library (lubridate)
 library(gt)
@@ -28,14 +24,41 @@ training_data <- Provider_Training_Distribution |>
 
  # this should give you a character vector, with each file name represented by an entry
 ```
-
-# Completion Rates by Specialty
+## Row Badges {height=20%}
 
 ```{r}
-#|error: true
-#|warning: true
-#|echo: false
-#|include: false
+#| content: valuebox
+#| title: "Total Completion Rate"
+
+total_rate <- training_data |> 
+  summarise(Total_Completion_Rate = round(sum(Completed)/n(), 3))
+list(icon = "bookmark-check-fill",
+     color = "primary",
+     value = percent(pull(total_rate,1),accuracy = 0.1)
+)
+```
+
+```{r} 
+#| content: valuebox
+#| title: "Last Updated"
+
+Update <- training_data |> 
+  summarise(last_update = format(max(`Completion time`, na.rm = T),"%m/%d")) 
+
+numby =pull(Update,1)
+
+list(
+  icon = "calendar",
+  color = "primary",
+  value = numby
+)
+
+```
+
+## Completion Rates by Specialty {height = 80%}
+
+```{r}
+#|title: "Total Completion Rate by Specialty"
 
 completion_rates <- training_data |> 
   group_by(Department) |> 
@@ -54,8 +77,4 @@ ggplot(completion_rates, aes(x = reorder(Department, Completed),
   xlab("Specialty")+
   ylab("Percent Completed")
 
-
-
 ```
-
-The `echo: false` option disables the printing of code (only output is displayed).

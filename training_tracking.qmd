@@ -24,7 +24,7 @@ training_data <- Provider_Training_Distribution |>
 
  # this should give you a character vector, with each file name represented by an entry
 ```
-## Row Badges {height=10%}
+## Row Badges {height=20%}
 
 ```{r}
 #| content: valuebox

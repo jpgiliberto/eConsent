@@ -195,3 +195,155 @@ non_responders <- training_data |>
 
 non_responders
 ```
+
+# Chair List
+
+## Row - Emails {.tabset}
+
+```{r}
+#| label: Goff
+#| title: Goff
+chair = "Barbara Goff"
+non_responder_chair <- training_data |> 
+  filter(!Completed &
+           Chair == chair) |> 
+  group_by(`Provider Type`) |>
+  mutate(full_name = str_c(`First Name`,`Last Name`, sep = " " )) |> 
+  summarise(Count = n(),
+            Surgeon_list = str_flatten (full_name, collapse = " | "),
+            Email_list = str_flatten (Email, collapse = "; ")
+            ) |> 
+  gt()
+
+non_responder_chair
+```
+
+```{r}
+#| label: Ellenbogen
+#| title: Ellenbogen
+chair = "Richard Ellenbogen"
+non_responder_chair <- training_data |> 
+  filter(!Completed &
+           Chair == chair) |> 
+  group_by(`Provider Type`) |>
+  mutate(full_name = str_c(`First Name`,`Last Name`, sep = " " )) |> 
+  summarise(Count = n(),
+            Surgeon_list = str_flatten (full_name, collapse = " | "),
+            Email_list = str_flatten (Email, collapse = "; ")
+            ) |> 
+  gt()
+
+non_responder_chair
+```
+
+```{r}
+#| label: Futran
+#| title: Futran
+chair = "Neal Futran"
+non_responder_chair <- training_data |> 
+  filter(!Completed &
+           Chair == chair) |> 
+  group_by(`Provider Type`) |>
+  mutate(full_name = str_c(`First Name`,`Last Name`, sep = " " )) |> 
+  summarise(Count = n(),
+            Surgeon_list = str_flatten (full_name, collapse = " | "),
+            Email_list = str_flatten (Email, collapse = "; ")
+            ) |> 
+  gt()
+
+non_responder_chair
+```
+
+
+```{r}
+#| label: Wood
+#| title: Wood
+chair = "Doug Wood"
+non_responder_chair <- training_data |> 
+  filter(!Completed &
+           Chair == chair) |> 
+  group_by(`Provider Type`) |>
+  mutate(full_name = str_c(`First Name`,`Last Name`, sep = " " )) |> 
+  summarise(Count = n(),
+            Surgeon_list = str_flatten (full_name, collapse = " | "),
+            Email_list = str_flatten (Email, collapse = "; ")
+            ) |> 
+  gt()
+
+non_responder_chair
+```
+
+
+
+```{r}
+#| label: Rezaei
+#| title: Rezaei
+chair = "Kasra Rezaei"
+non_responder_chair <- training_data |> 
+  filter(!Completed &
+           Chair == chair) |> 
+  group_by(`Provider Type`) |>
+  mutate(full_name = str_c(`First Name`,`Last Name`, sep = " " )) |> 
+  summarise(Count = n(),
+            Surgeon_list = str_flatten (full_name, collapse = " | "),
+            Email_list = str_flatten (Email, collapse = "; ")
+            ) |> 
+  gt()
+
+non_responder_chair
+```
+
+
+```{r}
+#| label: Lin
+#| title: Lin
+chair = "Dan Lin"
+non_responder_chair <- training_data |> 
+  filter(!Completed &
+           Chair == chair) |> 
+  group_by(`Provider Type`) |>
+  mutate(full_name = str_c(`First Name`,`Last Name`, sep = " " )) |> 
+  summarise(Count = n(),
+            Surgeon_list = str_flatten (full_name, collapse = " | "),
+            Email_list = str_flatten (Email, collapse = "; ")
+            ) |> 
+  gt()
+
+non_responder_chair
+```
+
+```{r}
+#| label: Chansky
+#| title: Chansky
+chair = "Howard Chansky"
+non_responder_chair <- training_data |> 
+  filter(!Completed &
+           Chair == chair) |> 
+  group_by(`Provider Type`) |>
+  mutate(full_name = str_c(`First Name`,`Last Name`, sep = " " )) |> 
+  summarise(Count = n(),
+            Surgeon_list = str_flatten (full_name, collapse = " | "),
+            Email_list = str_flatten (Email, collapse = "; ")
+            ) |> 
+  gt()
+
+non_responder_chair
+```
+
+```{r}
+#| label: Dodson
+#| title: Dodson
+chair = "Thomas Dodson"
+non_responder_chair <- training_data |> 
+  filter(!Completed &
+           Chair == chair) |> 
+  group_by(`Provider Type`) |>
+  mutate(full_name = str_c(`First Name`,`Last Name`, sep = " " )) |> 
+  summarise(Count = n(),
+            Surgeon_list = str_flatten (full_name, collapse = " | "),
+            Email_list = str_flatten (Email, collapse = "; ")
+            ) |> 
+  gt()
+
+non_responder_chair
+```

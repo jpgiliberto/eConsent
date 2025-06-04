@@ -113,7 +113,7 @@ comment_list <- training_data |>
 
 no_comments <- comment_list |> 
   mutate(Question = str_to_sentence(questions)) |> 
-  mutate(No_Qs = str_starts(Question,"No")) |> 
+   mutate(No_Qs = str_starts(Question,"N") & str_length(Question) <50) |> 
   filter(No_Qs ==T)
 
 ```
@@ -139,7 +139,7 @@ list(icon = "ban",
 
 total_other_comm <- comment_list |>
   mutate(Question = str_to_sentence(questions)) |> 
-  mutate(No_Qs = str_starts(Question,"No")) |> 
+  mutate(No_Qs = str_starts(Question,"N") & str_length(Question) <50) |> 
   filter(No_Qs ==F) |> 
   summarise(Number = n())
 
@@ -171,7 +171,7 @@ total_no_comm_details |>
 
 comm_details <- comment_list |> 
   mutate(Question = str_to_sentence(questions)) |> 
-  mutate(No_Qs = str_starts(Question,"No")) |> 
+  mutate(No_Qs = str_starts(Question,"N") & str_length(Question) <50) |> 
   filter(No_Qs ==F) |> 
   left_join(training_data) |> 
   select(Name, Email, Question) |> 

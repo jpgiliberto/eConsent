@@ -180,3 +180,18 @@ comm_details <- comment_list |>
 comm_details
   
 ```
+
+# Emails
+
+## Row - Emails
+
+```{r}
+non_responders <- training_data |> 
+  filter(!Completed) |> 
+  group_by(`Provider Type`) |> 
+  summarise(Count = n(),
+    Email_list = str_flatten (Email, collapse = "; ")) |> 
+  gt()
+
+non_responders
+```

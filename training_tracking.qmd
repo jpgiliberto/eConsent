@@ -75,12 +75,13 @@ ggplot(completion_rates, aes(x = reorder(Department, Completed),
                              color = Completed, 
                              fill=Completed)) +
   geom_col() +
-  geom_text(nudge_y = 0.019, color = "black")+
+  geom_text(nudge_y = 0.024, color = "black")+
   scale_color_continuous(type = "viridis")+
   scale_fill_continuous(type = "viridis")+
   coord_flip()+
   xlab("Specialty")+
-  ylab("Percent Completed")
+  ylab("Percent Completed")+
+  theme_bw(base_size = 14)
 
 ```
 
@@ -94,10 +95,10 @@ data_surv <- training_data |>
 R_surv <- Surv(time = data_surv$days_to_complete, event = data_surv$Completed)
 R_surv_fit <- survfit(R_surv ~ 1, data=data_surv)
 ggsurvfit(R_surv_fit, type= "risk", linewidth = 1.75, color="purple3")+
-  geom_vline(xintercept = 33, linetype = "dashed", color = "orange")+
-  geom_vline(xintercept = 40, linetype = "dashed", color = "red")+
+  geom_vline(xintercept = 33,linewidth = 2, linetype = "dashed", color = "orange")+
+  geom_vline(xintercept = 40, linewidth = 2, linetype = "dashed", color = "red")+
   annotate("text", x = 10, y = 0.5, label = "Orange = July 1st | Red = July 8th, past due")+
-  scale_y_continuous(expand = c(0.025, 0), limits = c(0, 1), label = scales::label_percent())+
+  scale_y_continuous(expand = c(0.025, 0), limits = c(0, 1),n.breaks = 10, label = scales::label_percent())+
   scale_x_continuous(expand = c(0.015, 0), limits = c(0, 40),n.breaks = 8)+
   xlab("Days Since Training Email")+
   ylab("Completion Rate")

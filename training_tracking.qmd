@@ -153,8 +153,8 @@ list(icon = "card-checklist",
 
 ## Row - Comment details {height=80%}
 
+### Details of No/None Q
 ```{r}
-#| title: "Details of No/None Q"
 
 total_no_comm_details <- no_comments |> 
   group_by(Question) |> 
@@ -166,19 +166,38 @@ total_no_comm_details |>
   rename(Response = Question)|> 
   gt()
 ```
+### Details of Questions {.tabset}
 
 ```{r}
-#| title: "Details of Questions"
+#| title: "All Comments"
 
 comm_details <- comment_list |> 
   mutate(Question = str_to_sentence(questions)) |> 
   mutate(No_Qs = str_starts(Question,"N") & str_length(Question) <50) |> 
   filter(No_Qs ==F) |> 
-  left_join(training_data) |> 
+  left_join(training_data) |>
   select(Name, Email, Question) |> 
   gt()
 
 comm_details
+  
+```
+```{r}
+#| title: "Pending"
+
+Responded_To <- c("clb46@uw.edu","calhounk@uw.edu", "schiang@uw.edu","sinadada@uw.edu","tbdodson@uw.edu", "rge@uw.edu", "ellint@uw.edu", "bgoff@uw.edu", 	"jihuang@uw.edu", "karik3@uw.edu", "meyertk@uw.edu", "krismoe@uw.edu", 	"lowens2@uw.edu", "chrismp@uw.edu", "scriba@uw.edu", "ashope@uw.edu","elisej@uw.edu", "lazeck@uw.edu")
+
+comm_details_JPG_todo <- comment_list |> 
+  mutate(Question = str_to_sentence(questions)) |> 
+  mutate(No_Qs = str_starts(Question,"N") & str_length(Question) <50) |> 
+  filter(No_Qs ==F) |> 
+  left_join(training_data) |> 
+  mutate(JPG_to_respond = (!Email%in%Responded_To)) |> 
+  filter(JPG_to_respond) |> 
+  select(Name, Email, Question) |> 
+  gt()
+
+comm_details_JPG_todo
   
 ```
 

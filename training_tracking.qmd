@@ -75,7 +75,7 @@ ggplot(completion_rates, aes(x = reorder(Department, Completed),
                              color = Completed, 
                              fill=Completed)) +
   geom_col() +
-  geom_text(nudge_y = 0.024, color = "black")+
+  geom_text(nudge_y = 0.04, color = "black")+
   scale_color_continuous(type = "viridis")+
   scale_fill_continuous(type = "viridis")+
   coord_flip()+
@@ -185,7 +185,7 @@ comm_details
 ```{r}
 #| title: "Pending"
 
-Responded_To <- c("clb46@uw.edu","calhounk@uw.edu", "schiang@uw.edu","sinadada@uw.edu","tbdodson@uw.edu", "rge@uw.edu", "ellint@uw.edu", "bgoff@uw.edu", 	"jihuang@uw.edu", "karik3@uw.edu", "meyertk@uw.edu", "krismoe@uw.edu", 	"lowens2@uw.edu", "chrismp@uw.edu", "scriba@uw.edu", "ashope@uw.edu","elisej@uw.edu", "lazeck@uw.edu")
+Responded_To <- c("clb46@uw.edu","calhounk@uw.edu", "schiang@uw.edu","sinadada@uw.edu","tbdodson@uw.edu", "rge@uw.edu", "ellint@uw.edu", "bgoff@uw.edu", 	"jihuang@uw.edu", "karik3@uw.edu", "meyertk@uw.edu", "krismoe@uw.edu", 	"lowens2@uw.edu", "chrismp@uw.edu", "scriba@uw.edu", "ashope@uw.edu","elisej@uw.edu", "lazeck@uw.edu", "bshaffer@uw.edu", "jlm@uw.edu" )
 
 comm_details_JPG_todo <- comment_list |> 
   mutate(Question = str_to_sentence(questions)) |> 

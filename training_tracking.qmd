@@ -114,7 +114,7 @@ comment_list <- training_data |>
 
 no_comments <- comment_list |> 
   mutate(Question = str_to_sentence(questions)) |> 
-   mutate(No_Qs = str_starts(Question,"N") & str_length(Question) <50) |> 
+   mutate(No_Qs = (str_starts(Question,"N") & str_length(Question) <50)|str_detect(Question,"None")) |> 
   filter(No_Qs ==T)
 
 ```
@@ -140,7 +140,7 @@ list(icon = "ban",
 
 total_other_comm <- comment_list |>
   mutate(Question = str_to_sentence(questions)) |> 
-  mutate(No_Qs = str_starts(Question,"N") & str_length(Question) <50) |> 
+  mutate(No_Qs = (str_starts(Question,"N") & str_length(Question) <50)|str_detect(Question,"None")) |> 
   filter(No_Qs ==F) |> 
   summarise(Number = n())
 
@@ -173,7 +173,7 @@ total_no_comm_details |>
 
 comm_details <- comment_list |> 
   mutate(Question = str_to_sentence(questions)) |> 
-  mutate(No_Qs = str_starts(Question,"N") & str_length(Question) <50) |> 
+  mutate(No_Qs = (str_starts(Question,"N") & str_length(Question) <50)|str_detect(Question,"None")) |> 
   filter(No_Qs ==F) |> 
   left_join(training_data) |>
   select(Name, Email, Question) |> 
@@ -185,11 +185,11 @@ comm_details
 ```{r}
 #| title: "Pending"
 
-Responded_To <- c("clb46@uw.edu","calhounk@uw.edu", "schiang@uw.edu","sinadada@uw.edu","tbdodson@uw.edu", "rge@uw.edu", "ellint@uw.edu", "bgoff@uw.edu", 	"jihuang@uw.edu", "karik3@uw.edu", "meyertk@uw.edu", "krismoe@uw.edu", 	"lowens2@uw.edu", "chrismp@uw.edu", "scriba@uw.edu", "ashope@uw.edu","elisej@uw.edu", "lazeck@uw.edu", "bshaffer@uw.edu", "jlm@uw.edu","katmo@uw.edu" )
+Responded_To <- c("clb46@uw.edu","calhounk@uw.edu", "schiang@uw.edu","sinadada@uw.edu","tbdodson@uw.edu", "rge@uw.edu", "ellint@uw.edu", "bgoff@uw.edu", 	"jihuang@uw.edu", "karik3@uw.edu", "meyertk@uw.edu", "krismoe@uw.edu", 	"lowens2@uw.edu", "chrismp@uw.edu", "scriba@uw.edu", "ashope@uw.edu","elisej@uw.edu", "lazeck@uw.edu", "bshaffer@uw.edu", "jlm@uw.edu","katmo@uw.edu","rsweet@uw.edu", "rby2@uw.edu", "ivrj@uw.edu","unno@uw.edu", "cyang@uw.edu","bnorquis@uw.edu", "alovib@uw.edu" )
 
 comm_details_JPG_todo <- comment_list |> 
   mutate(Question = str_to_sentence(questions)) |> 
-  mutate(No_Qs = str_starts(Question,"N") & str_length(Question) <50) |> 
+  mutate(No_Qs = (str_starts(Question,"N") & str_length(Question) <50)|str_detect(Question,"None")) |> 
   filter(No_Qs ==F) |> 
   left_join(training_data) |> 
   mutate(JPG_to_respond = (!Email%in%Responded_To)) |> 

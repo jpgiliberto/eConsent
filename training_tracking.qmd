@@ -136,7 +136,7 @@ list(icon = "ban",
 
 ```{r} 
 #| content: valuebox
-#| title: "Last Updated"
+#| title: "Free Text Comments"
 
 total_other_comm <- comment_list |>
   mutate(Question = str_to_sentence(questions)) |> 
@@ -171,13 +171,17 @@ total_no_comm_details |>
 ```{r}
 #| title: "All Comments"
 
-comm_details <- comment_list |> 
+comm_details1 <- comment_list |> 
   mutate(Question = str_to_sentence(questions)) |> 
   mutate(No_Qs = (str_starts(Question,"N") & str_length(Question) <50)|str_detect(Question,"None")) |> 
   filter(No_Qs ==F) |> 
   left_join(training_data) |>
-  select(Name, Email, Question) |> 
+  select(Name, Email, Question)
+
+comm_details <- comm_details1 |>  
   gt()
+
+write.csv(comm_details1$Question,"Freetex_Details.csv")
 
 comm_details
   

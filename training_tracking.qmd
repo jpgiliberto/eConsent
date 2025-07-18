@@ -99,7 +99,7 @@ ggsurvfit(R_surv_fit, type= "risk", linewidth = 1.75, color="purple3")+
   geom_vline(xintercept = 40, linewidth = 2, linetype = "dashed", color = "red")+
   annotate("text", x = 10, y = 0.5, label = "Orange = July 1st | Red = July 8th, past due")+
   scale_y_continuous(expand = c(0.025, 0), limits = c(0, 1),n.breaks = 10, label = scales::label_percent())+
-  scale_x_continuous(expand = c(0.015, 0), limits = c(0, 40),n.breaks = 8)+
+  scale_x_continuous(expand = c(0.015, 0), limits = c(0, 60),n.breaks = 8)+
   xlab("Days Since Training Email")+
   ylab("Completion Rate")
 
